@@ -15,8 +15,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## XCode
-This source is writed for X Code 9 (X Code 10 and upper not compile), you have to change and character ./ios/Runner/AppDelegate.swift
+## Execute
 
 Command for the simulator Osx:
 ````
