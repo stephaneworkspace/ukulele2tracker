@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:positioned_tap_detector/positioned_tap_detector.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -44,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- int _counter = 0;
+  int _counter = 0;
 
 
   void _incrementCounter() {
@@ -57,6 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+  String _position = '';
+
+  void _handleTap(String gesture, TapPosition position) {
+    setState(() {
+      _position = '$gesture: Global: ${position.global}, Relative ${position.relative}';
+    }); // setState for refresh form
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +92,25 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: Align(
                 alignment: FractionalOffset.topCenter,
-                child: new Image.asset(
+                child: PositionedTapDetector(
+                  onTap: (position) => _handleTap('Single tap', position),
+                  onDoubleTap: (position) => _handleTap('Double tap', position),
+                  onLongPress: (position) => _handleTap('Long press', position),
+                  doubleTapDelay: Duration(milliseconds: 500),
+                  child: Image.asset(
                   'assets/test.png',
                   fit: BoxFit.fill,
                   width: 320.0,
                   height: 320.0,
+                  )
                 )
               ) 
+            ),
+            Expanded(
+              child: Align(
+                alignment: FractionalOffset.topCenter,
+                child: new Text(_position),
+              )
             )
           ],
         ),
