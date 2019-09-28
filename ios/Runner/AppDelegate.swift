@@ -12,4 +12,4 @@ import Flutter
   }
 }
 
-// coded for X Code 9 -> for 10 and upper : https://stackoverflow.com/questions/50794391/ios-app-xcode-build-errors
+// coded for X Code 9 -> for 10 and upper : https://stackoverflow.com/questions/50794391/ios-app-xcode-build-errors UIApplication.LaunchOptionsKey -> UIApplicationLaunchOptionsKey
