@@ -1,5 +1,7 @@
 name: ukulele2tracker
-description: A new Flutter project.
+description: App for ukulele
+author: Stéphane Bressani <s.bressani@bluewin.ch>
+homepage: https://github.com/stephaneworkspace/ukulele2tracker
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -25,6 +27,10 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   positioned_tap_detector: ^1.0.3
+
+  # UkleleuSynth
+  vibrate: ^0.0.4
+  flutter_midi: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:positioned_tap_detector/positioned_tap_detector.dart';
+import 'package:flutter_midi/flutter_midi.dart';
+import 'package:vibrate/vibrate.dart';
 import 'uku_tabs.dart';
 
 void main() => runApp(MyApp());
@@ -48,7 +50,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -87,6 +88,21 @@ class _MyHomePageState extends State<MyHomePage> {
   void _setPrint() {
     setState(() {
       _swPrint ? _swPrint = false : _swPrint = true;
+    });
+  }
+
+  int midi;
+
+  // Pour le moment je n'ouvre pas une nouvelle vue
+  void _toDetectDown(tapDownDetail) {
+    setState(() {
+      _position = 'Down';
+    });
+  }
+
+  void _toDetectCancel() {
+    setState(() {
+      _position = 'Cancel';
     });
   }
 
@@ -194,7 +210,19 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.play_arrow),
+        //child: Ink.image(
+        //  image: AssetImage('assets/test.png'),
+        //  fit: BoxFit.cover,
+        //  width: 50.0,
+        //  height: 50.0,
+          child: InkWell(
+            onTap: () {},
+            onTapDown: _toDetectDown,
+            onTapCancel: _toDetectCancel,
+            child: new Icon(Icons.play_arrow),
+          )
+        //)
+        // child: Icon(Icons.play_arrow),
       ),
     );
   }
