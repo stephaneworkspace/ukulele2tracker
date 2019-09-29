@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:positioned_tap_detector/positioned_tap_detector.dart';
 import 'package:flutter_midi/flutter_midi.dart';
@@ -51,18 +53,23 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    // This call to setState tells the Flutter framework that something has
+    // changed in this State, which causes it to rerun the build method below
+    // so that the display can reflect the updated values. If we changed
+    // _counter without calling setState(), then the build method would not be
+    // called again, and so nothing would appear to happen.
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
+      _position = 'Begin';
+      Timer(Duration(seconds: 2), () {
+        setState(() {
+          _position = 'End';
+        });
+      });
     });
   }
 
   String _position = '';
-
   void _handleTap(String gesture, TapPosition position) {
     setState(() {
       _position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
@@ -92,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   int midi;
-
+  /*
   // Pour le moment je n'ouvre pas une nouvelle vue
   void _toDetectDown(tapDownDetail) {
     setState(() {
@@ -104,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _position = 'Cancel';
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -209,8 +216,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        //child: Ink.image(
+        tooltip: 'Play',
+        child: Icon(Icons.play_arrow),
+        /*child: Ink.image(
         //  image: AssetImage('assets/test.png'),
         //  fit: BoxFit.cover,
         //  width: 50.0,
@@ -221,8 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTapCancel: _toDetectCancel,
             child: new Icon(Icons.play_arrow),
           )
-        //)
-        // child: Icon(Icons.play_arrow),
+        //)*/
       ),
     );
   }
