@@ -68,7 +68,104 @@ class _MyHomePageState extends State<MyHomePage> {
     }); // setState for refresh form
   }
 
+  // Pour le moment je n'ouvre pas une nouvelle vue
+  void _toPlay(context) {
+    setState(() {
+      _position = 'Play';
+    });
+  }
 
+  // Pour le moment je n'ouvre pas une nouvelle vue
+  void _toHelp(context) {
+    setState(() {
+      _position = 'Help';
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> menu = <Widget>[
+      new IconButton(
+        icon: new Icon(Icons.play_arrow),
+        tooltip: 'Play',
+        onPressed: () => _toPlay(context),
+      ),
+      new IconButton(
+        icon: new Icon(Icons.help),
+        tooltip: 'Help',
+        onPressed: () => _toHelp(context)
+      )
+    ];
+
+    Widget subtitle = new Container(
+      padding: new EdgeInsets.all(8.0),
+      color: new Color(0X33000000),
+      child: new Text('Veuillez insérez la position des cordes à l\'écran'),
+    );
+
+    Widget middleSection = new Expanded(
+      child: new Container(
+        padding: new EdgeInsets.all(8.0),
+        color: new Color(0X9900CC00),
+        height: 48.0, // https://cogitas.net/flutter-ui-code-tutorial-mastering-row-column/ ???
+        child: new Align(
+          alignment: FractionalOffset.topCenter,
+          child: PositionedTapDetector(
+            onTap: (position) => _handleTap('Single tap', position),
+            onDoubleTap: (position) => _handleTap('Double tap', position),
+            onLongPress: (position) => _handleTap('Long press', position),
+            doubleTapDelay: Duration(milliseconds: 500),
+            child: new CustomPaint(
+              size: Size(300, 500),
+              painter: new UkuTabs()
+            ),
+          )
+        )
+      )
+    );
+
+    Widget bottomBanner = new Container(
+      padding: new EdgeInsets.all(8.0),
+      color: new Color(0X99CC0000),
+      height: 48.0,
+      child: new Center(
+        child: new Text('Bottom Banner: $_position'),
+      ),
+    );
+
+    Widget body = new Column(
+      // This makes eache child fill the full width of the screen
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        subtitle,
+        middleSection,
+        bottomBanner
+      ]
+    );
+
+    return new Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        //title: Text(widget.title),
+        title: new Text(widget.title + '$_counter'),
+        actions: menu,
+      ),
+      body: new Padding(
+        padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+        child: body,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+/*
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -167,5 +264,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
+*/
 // https://flutterstudio.app
