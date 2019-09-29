@@ -95,10 +95,10 @@ class UkuTabs extends CustomPainter {
       ..strokeWidth = strokeHelperWidth
       ..strokeCap = StrokeCap.round;
     // Circle
-    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 5) + _espacementY / 2)), circleHelperRadius, paint);
-    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 7) + _espacementY / 2)), circleHelperRadius, paint);
-    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 10) + _espacementY / 2)), circleHelperRadius, paint);
-    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 12) + _espacementY / 2)), circleHelperRadius, paint);
+    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 4) + _espacementY / 2)), circleHelperRadius, paint);
+    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 6) + _espacementY / 2)), circleHelperRadius, paint);
+    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 9) + _espacementY / 2)), circleHelperRadius, paint);
+    canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 11) + _espacementY / 2)), circleHelperRadius, paint);
 
     // Essai
     if (_swPrint) {
