@@ -64,14 +64,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _handleTap(String gesture, TapPosition position) {
     setState(() {
-      _position = '$gesture: Global: ${position.global}, Relative ${position.relative}';
+      _position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
     }); // setState for refresh form
+    _setPrint();
   }
 
   // Pour le moment je n'ouvre pas une nouvelle vue
   void _toHelp(context) {
     setState(() {
       _position = 'Help';
+    });
+  }
+
+  bool _swPrint = false;
+  void _setPrint() {
+    setState(() {
+      _swPrint ? _swPrint = false : _swPrint = true;
     });
   }
 
@@ -106,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             doubleTapDelay: Duration(milliseconds: 500),
             child: new CustomPaint(
               size: Size(300, 530),
-              painter: new UkuTabs()
+              painter: new UkuTabs(_swPrint)
             ),
           )
         )
