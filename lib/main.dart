@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ukulele chord',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Ukulele chord '),
     );
   }
 }
@@ -69,13 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // Pour le moment je n'ouvre pas une nouvelle vue
-  void _toPlay(context) {
-    setState(() {
-      _position = 'Play';
-    });
-  }
-
-  // Pour le moment je n'ouvre pas une nouvelle vue
   void _toHelp(context) {
     setState(() {
       _position = 'Help';
@@ -86,11 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> menu = <Widget>[
-      new IconButton(
-        icon: new Icon(Icons.play_arrow),
-        tooltip: 'Play',
-        onPressed: () => _toPlay(context),
-      ),
       new IconButton(
         icon: new Icon(Icons.help),
         tooltip: 'Help',
@@ -160,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.play_arrow),
       ),
     );
   }
