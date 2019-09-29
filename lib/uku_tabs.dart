@@ -10,7 +10,7 @@ class UkuTabs extends CustomPainter {
 
   // x | | | | x // = 5 { x = margin}
   final pXDiv6 = size.width / 5;
-  final pYBegin = 15.0;
+  final pYBegin = 0.0;
   final pYEnd = size.height;
   final strokeWidth = 4.0;
   final pYBeginLigne0 = pYBegin + (strokeWidth * 3);

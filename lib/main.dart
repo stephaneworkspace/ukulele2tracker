@@ -98,14 +98,14 @@ class _MyHomePageState extends State<MyHomePage> {
         color: new Color(0X9900CC00),
         height: 48.0, // https://cogitas.net/flutter-ui-code-tutorial-mastering-row-column/ ???
         child: new Align(
-          alignment: FractionalOffset.topCenter,
+          alignment: FractionalOffset.center,
           child: PositionedTapDetector(
             onTap: (position) => _handleTap('Single tap', position),
             onDoubleTap: (position) => _handleTap('Double tap', position),
             onLongPress: (position) => _handleTap('Long press', position),
             doubleTapDelay: Duration(milliseconds: 500),
             child: new CustomPaint(
-              size: Size(300, 544),
+              size: Size(300, 530),
               painter: new UkuTabs()
             ),
           )
