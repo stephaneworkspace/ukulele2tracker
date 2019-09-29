@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(title: 'Ukulele chord '),
     );
@@ -76,6 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // Pour le moment je n'ouvre pas une nouvelle vue
+  void _toSettings(context) {
+    setState(() {
+      _position = 'Settings';
+    });
+  }
+
   bool _swPrint = false;
   void _setPrint() {
     setState(() {
@@ -83,10 +90,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     List<Widget> menu = <Widget>[
+      new IconButton(
+        icon: new Icon(Icons.settings),
+        tooltip: 'Settings',
+        onPressed: () => _toSettings(context)
+      ),
       new IconButton(
         icon: new Icon(Icons.help),
         tooltip: 'Help',
@@ -94,16 +105,41 @@ class _MyHomePageState extends State<MyHomePage> {
       )
     ];
 
+/*
     Widget subtitle = new Container(
-      padding: new EdgeInsets.all(8.0),
-      color: new Color(0X33000000),
-      child: new Text('Veuillez insérez la position des cordes à l\'écran'),
-    );
+      child: new Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.green[300],
+              Colors.green[100],
+            ],
+          ),
+        ),
+        padding: new EdgeInsets.all(8.0),
+        child: new Center(
+          child: new Text('Veuillez insérez la position des cordes à l\'écran'),
+        )
+      )
+    );*/
 
     Widget middleSection = new Expanded(
       child: new Container(
-        padding: new EdgeInsets.all(8.0),
-        color: new Color(0X9900CC00),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.green[600],
+              Colors.green[400],
+              Colors.green[300],
+              Colors.green[100],
+            ],
+          ),
+        ),
+        //padding: new EdgeInsets.all(8.0),
         height: 48.0, // https://cogitas.net/flutter-ui-code-tutorial-mastering-row-column/ ???
         child: new Align(
           alignment: FractionalOffset.center,
@@ -123,10 +159,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Widget bottomBanner = new Container(
       padding: new EdgeInsets.all(8.0),
-      color: new Color(0X99CC0000),
+      color: Colors.black,
       height: 48.0,
       child: new Center(
-        child: new Text('Bottom Banner: $_position'),
+        child: new Text('Bottom Banner: $_position',
+          style: new TextStyle(color: Colors.white)
+        ),
       ),
     );
 
@@ -135,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        subtitle,
+        // subtitle,
         middleSection,
         bottomBanner
       ]
