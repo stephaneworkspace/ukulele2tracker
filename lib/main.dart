@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:positioned_tap_detector/positioned_tap_detector.dart';
 import 'package:flutter_midi/flutter_midi.dart';
 import 'package:vibrate/vibrate.dart';
@@ -50,9 +51,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  initState() {
+    _loadSoundFont();
+    super.initState();
+  }
+
+
+  void _loadSoundFont() async {
+    FlutterMidi.unmute();
+    rootBundle.load('assets/sounds/Piano.sf2').then((sf2) {
+      FlutterMidi.prepare(sf2: sf2, name: 'Piano.sf2');
+    });
+  }
+  
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
     // This call to setState tells the Flutter framework that something has
     // changed in this State, which causes it to rerun the build method below
     // so that the display can reflect the updated values. If we changed
@@ -61,9 +76,30 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter++;
       _position = 'Begin';
+      // 1 - C
+      // 2 - C#
+      // 3 - D
+      // 4 - D#
+      // 5 - E
+      // 6 - F
+      // 7 - F#
+      // 8 - G
+      // 9 - G#
+      // 10 - A
+      // 11 - A#
+      // 12 - B
+      // 1 - 1
+      // 13 - 2
+      // 25 - 3
+      // 37 - 4
+
+      // 52 = Do 1ère octave
+      // 65 = Do 2eme octave
+      FlutterMidi.playMidiNote(midi: 52);
       Timer(Duration(seconds: 2), () {
         setState(() {
           _position = 'End';
+          FlutterMidi.stopMidiNote(midi: 52);
         });
       });
     });
