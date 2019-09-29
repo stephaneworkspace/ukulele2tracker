@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onLongPress: (position) => _handleTap('Long press', position),
             doubleTapDelay: Duration(milliseconds: 500),
             child: new CustomPaint(
-              size: Size(300, 500),
+              size: Size(300, 544),
               painter: new UkuTabs()
             ),
           )
