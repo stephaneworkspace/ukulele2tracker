@@ -109,18 +109,24 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: Align(
                 alignment: FractionalOffset.topCenter,
-                child: new Text(_position),
+                child: PositionedTapDetector(
+                  onTap: (position) => _handleTap('Single tap', position),
+                  onDoubleTap: (position) => _handleTap('Double tap', position),
+                  onLongPress: (position) => _handleTap('Long press', position),
+                  doubleTapDelay: Duration(milliseconds: 500),
+                  child: new CustomPaint(
+                    size: Size(300, 700),
+                    painter: new UkuTabs()
+                  ),
+                )
               )
-            ),
+            ), 
             Expanded(
               child: Align(
                 alignment: FractionalOffset.topCenter,
-                child: new CustomPaint(
-                  size: Size(300, 300),
-                  painter: new UkuTabs()
-                ),
+                child: new Text(_position),
               )
-            )
+            ),
           ],
         ),
         //)
@@ -161,3 +167,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// https://flutterstudio.app
