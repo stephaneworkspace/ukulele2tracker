@@ -105,10 +105,18 @@ class _MyHomePageState extends State<MyHomePage> {
       // 60 - C5
       if (_swBass) {
         _midi = [];
-        _midi.add(24);
+        // G C E A
+        _midi.add(_noteToInt(Note.g, 3)); // 0
+        _midi.add(_noteToInt(Note.d, 3)); // 2
+        _midi.add(_noteToInt(Note.f, 3)); // 1
+        _midi.add(_noteToInt(Note.b, 3)); // 2
       } else {
         _midi = [];
-        _midi.add(48);
+        // G C E A
+        _midi.add(_noteToInt(Note.g, 4)); // 0
+        _midi.add(_noteToInt(Note.d, 4)); // 2
+        _midi.add(_noteToInt(Note.f, 4)); // 1
+        _midi.add(_noteToInt(Note.b, 4)); // 2
       }
       for (int ukuString in _midi) {
         FlutterMidi.playMidiNote(midi: ukuString);
@@ -123,36 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 /* http://blog.sethladd.com/2011/12/lists-and-arrays-in-dart.html
-  enum Note {
-    c,
-    c
-  }*/
-
-  /*
-  enum Status { 
-   none, 
-   running, 
-   stopped, 
-   paused 
-}  
-void main() { 
-   print(Status.values); 
-   Status.values.forEach((v) => print('value: $v, index: ${v.index}'));
-   print('running: ${Status.running}, ${Status.running.index}'); 
-   print('running index: ${Status.values[1]}'); 
-}
-It will produce the following output −
-
-[Status.none, Status.running, Status.stopped, Status.paused] 
-value: Status.none, index: 0 
-value: Status.running, index: 1 
-value: Status.stopped, index: 2 
-value: Status.paused, index: 3 
-running: Status.running, 1 
-running index: Status.running 
 */
 
-  int _noteToInt()
+  int _noteToInt(Note note, int octave) {
+    return (octave * 12) + (note.index + 1);
+  }
 
   String _position = '';
   void _handleTap(String gesture, TapPosition position) {
@@ -430,3 +413,18 @@ running index: Status.running
 }
 */
 // https://flutterstudio.app
+
+enum Note {
+  c,
+  cD,
+  d,
+  dD,
+  e,
+  f,
+  fD,
+  g,
+  gD,
+  a,
+  aD,
+  b
+}
