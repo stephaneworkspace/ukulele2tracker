@@ -19,7 +19,34 @@ class UkuHitBox {
           if (y >= (pYBeginLigne1 + (_espacementY * 2.0)) && y <= (pYBeginLigne1 + (_espacementY * 3.0)))
             return 3;
           else
-            return -1;
+            if (y >= (pYBeginLigne1 + (_espacementY * 3.0)) && y <= (pYBeginLigne1 + (_espacementY * 4.0)))
+              return 4;
+            else
+              if (y >= (pYBeginLigne1 + (_espacementY * 4.0)) && y <= (pYBeginLigne1 + (_espacementY * 5.0)))
+                return 5;
+              else
+                if (y >= (pYBeginLigne1 + (_espacementY * 5.0)) && y <= (pYBeginLigne1 + (_espacementY * 6.0)))
+                  return 6;
+                else
+                  if (y >= (pYBeginLigne1 + (_espacementY * 6.0)) && y <= (pYBeginLigne1 + (_espacementY * 7.0)))
+                    return 7;
+                  else
+                    if (y >= (pYBeginLigne1 + (_espacementY * 7.0)) && y <= (pYBeginLigne1 + (_espacementY * 8.0)))
+                      return 8;
+                    else
+                      if (y >= (pYBeginLigne1 + (_espacementY * 8.0)) && y <= (pYBeginLigne1 + (_espacementY * 9.0)))
+                        return 9;
+                      else
+                        if (y >= (pYBeginLigne1 + (_espacementY * 9.0)) && y <= (pYBeginLigne1 + (_espacementY * 10.0)))
+                          return 10;
+                        else
+                          if (y >= (pYBeginLigne1 + (_espacementY * 10.0)) && y <= (pYBeginLigne1 + (_espacementY * 11.0)))
+                            return 11;
+                          else
+                            if (y >= (pYBeginLigne1 + (_espacementY * 11.0)) && y <= (pYBeginLigne1 + (_espacementY * 12.0)))
+                              return 12;
+                            else
+                              return -1;
   }
 
   int detectColumn(double x) {

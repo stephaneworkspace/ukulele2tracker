@@ -124,7 +124,7 @@ class UkuTabs extends CustomPainter {
       paint = Paint()
         ..color = Colors.black;
       canvas.drawCircle(printCircle(2, 4, pXDiv6), _circleRadius, paint);
-    } else {
+    } /*else {
       // Ici définitation  de la hit box corde 0
       paint = Paint()
         ..color = Colors.red;
@@ -141,7 +141,7 @@ class UkuTabs extends CustomPainter {
       paint = Paint()
         ..color = Colors.red;
       canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, pYBeginLigne1 + (_espacementY * 4.0), pXDiv6 + (pXDiv6 / 2), pYBeginLigne1 + (_espacementY * 3)), paint);
-    }
+    }*/
   }
 
   @override
