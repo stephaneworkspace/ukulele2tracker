@@ -6,20 +6,20 @@ class UkuHitBox {
   final _espacementY = 40.0;
   final pYBeginLigne1 = 40.0 + 12.0; //pYBegin + (strokeWidth * 3);
 
-  // pXDiv6 + (pXDiv6 / 2)
-
-  // 1 => pYBeginLigne1                         | pYBeginLigne1 + (_espacementY * 1) 
-  // 2 => pYBeginLigne1 + (_espacementY * 2.0)  | pYBeginLigne1 + (_espacementY * 1) 
-  // 3 => pYBeginLigne1 + (_espacementY * 3.0)  | pYBeginLigne1 + (_espacementY * 2)
-
   int detectLine(double y) {
     if (y >= pY0Min && y <= pY0Max)
       return 0;
     else
-      if (y >= pYBeginLigne1 + _espacementY / 2 && y <= pYBeginLigne1 + (_espacementY * 1))
+      if (y >= pYBeginLigne1 && y <= pYBeginLigne1 + (_espacementY * 1))
         return 1;
       else
-        return -1;
+        if (y >= (pYBeginLigne1 + (_espacementY * 1.0)) && y <= (pYBeginLigne1 + (_espacementY * 2.0)))
+          return 2;
+        else
+          if (y >= (pYBeginLigne1 + (_espacementY * 2.0)) && y <= (pYBeginLigne1 + (_espacementY * 3.0)))
+            return 3;
+          else
+            return -1;
   }
 
   int detectColumn(double x) {
