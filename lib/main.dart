@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _position = '';
   void _handleTap(String gesture, TapPosition position) {
     setState(() {
-      _position = '${position.relative} + ${UkuHitBox().detectColonne(position.relative.dx)}';
+      _position = '${position.relative} + ${UkuHitBox().detectColumn(position.relative.dx)} ${UkuHitBox().detectLine(position.relative.dy)}';
       //_position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
     }); // setState for refresh form
     _setPrint();
