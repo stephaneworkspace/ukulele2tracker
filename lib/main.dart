@@ -84,24 +84,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter++;
       // _position = 'Begin';
-      // 0 - C0
-      // 1 - C#0
-      // 2 - D0
-      // 3 - D#0
-      // 4 - E0
-      // 5 - F0
-      // 6 - F#0
-      // 7 - G0
-      // 8 - G#0
-      // 9 - A0
-      // 10 - A#0
-      // 11 - B0
+      // 0 - C0  / 1 - C# / 2 - D0  / 3 - D#0 / 4  - E0  / 5 - F0 
+      // 6 - F#0 / 7 - G0 / 8 - G#0 / 9 - A0  / 10 - A#0 / 11 - B0
 
       // 0 - C0
       // 12 - C1
       // 24 - C2
       // 36 - C3
-      // 48 - C4 - C4
+      // 48 - C4
       // 60 - C5
       if (_swBass) {
         _midi = [];
