@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:positioned_tap_detector/positioned_tap_detector.dart';
 import 'package:flutter_midi/flutter_midi.dart';
-import 'package:vibrate/vibrate.dart';
+// import 'package:vibrate/vibrate.dart';
 import 'uku_tabs.dart';
 
 void main() => runApp(MyApp());
@@ -60,11 +60,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _loadSoundFont() async {
     FlutterMidi.unmute();
+    /*rootBundle.load('assets/sounds/Piano.sf2').then((sf2) {
+      FlutterMidi.prepare(sf2: sf2, name: 'Piano.sf2');
+    });*/
     rootBundle.load('assets/sounds/Piano.sf2').then((sf2) {
       FlutterMidi.prepare(sf2: sf2, name: 'Piano.sf2');
     });
+    /*rootBundle.load('assets/sounds/Bachata_guitar.sf2').then((sf2) {
+      FlutterMidi.prepare(sf2: sf2, name: 'Bachata_guitar.sf2');
+    });*/
   }
   
+  List _midi = [];
+
   int _counter = 0;
 
   void _incrementCounter() async {
@@ -75,35 +83,76 @@ class _MyHomePageState extends State<MyHomePage> {
     // called again, and so nothing would appear to happen.
     setState(() {
       _counter++;
-      _position = 'Begin';
-      // 1 - C
-      // 2 - C#
-      // 3 - D
-      // 4 - D#
-      // 5 - E
-      // 6 - F
-      // 7 - F#
-      // 8 - G
-      // 9 - G#
-      // 10 - A
-      // 11 - A#
-      // 12 - B
-      // 1 - 1
-      // 13 - 2
-      // 25 - 3
-      // 37 - 4
+      // _position = 'Begin';
+      // 0 - C0
+      // 1 - C#0
+      // 2 - D0
+      // 3 - D#0
+      // 4 - E0
+      // 5 - F0
+      // 6 - F#0
+      // 7 - G0
+      // 8 - G#0
+      // 9 - A0
+      // 10 - A#0
+      // 11 - B0
 
-      // 52 = Do 1ère octave
-      // 65 = Do 2eme octave
-      FlutterMidi.playMidiNote(midi: 52);
-      Timer(Duration(seconds: 2), () {
-        setState(() {
-          _position = 'End';
-          FlutterMidi.stopMidiNote(midi: 52);
+      // 0 - C0
+      // 12 - C1
+      // 24 - C2
+      // 36 - C3
+      // 48 - C4 - C4
+      // 60 - C5
+      if (_swBass) {
+        _midi = [];
+        _midi.add(24);
+      } else {
+        _midi = [];
+        _midi.add(48);
+      }
+      for (int ukuString in _midi) {
+        FlutterMidi.playMidiNote(midi: ukuString);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            //_position = 'End';
+            FlutterMidi.stopMidiNote(midi: ukuString);
+          });
         });
-      });
+      }
     });
   }
+
+/* http://blog.sethladd.com/2011/12/lists-and-arrays-in-dart.html
+  enum Note {
+    c,
+    c
+  }*/
+
+  /*
+  enum Status { 
+   none, 
+   running, 
+   stopped, 
+   paused 
+}  
+void main() { 
+   print(Status.values); 
+   Status.values.forEach((v) => print('value: $v, index: ${v.index}'));
+   print('running: ${Status.running}, ${Status.running.index}'); 
+   print('running index: ${Status.values[1]}'); 
+}
+It will produce the following output −
+
+[Status.none, Status.running, Status.stopped, Status.paused] 
+value: Status.none, index: 0 
+value: Status.running, index: 1 
+value: Status.stopped, index: 2 
+value: Status.paused, index: 3 
+running: Status.running, 1 
+running index: Status.running 
+*/
+
+  int _noteToInt()
 
   String _position = '';
   void _handleTap(String gesture, TapPosition position) {
@@ -134,7 +183,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  int midi;
+  bool _swBass = false;
+  void _toSwBass(context) async {
+    setState(() {
+      _swBass ? _swBass = false : _swBass = true;
+    });
+  }
   /*
   // Pour le moment je n'ouvre pas une nouvelle vue
   void _toDetectDown(tapDownDetail) {
@@ -152,6 +206,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> menu = <Widget>[
+      new IconButton(
+        icon: new Icon(Icons.tonality),
+        tooltip: 'Bass or Ukulele Med/High',
+        onPressed: () => _toSwBass(context)
+      ),
       new IconButton(
         icon: new Icon(Icons.settings),
         tooltip: 'Settings',
