@@ -6,6 +6,7 @@ import 'package:positioned_tap_detector/positioned_tap_detector.dart';
 import 'package:flutter_midi/flutter_midi.dart';
 // import 'package:vibrate/vibrate.dart';
 import 'uku_tabs.dart';
+import 'uku_hitbox.dart';
 
 void main() => runApp(MyApp());
 
@@ -130,7 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _position = '';
   void _handleTap(String gesture, TapPosition position) {
     setState(() {
-      _position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
+      _position = '${position.relative} + ${UkuHitBox().detectColonne(position.relative.dx)}';
+      //_position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
     }); // setState for refresh form
     _setPrint();
   }

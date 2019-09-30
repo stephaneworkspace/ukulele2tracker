@@ -29,7 +29,7 @@ dependencies:
   positioned_tap_detector: ^1.0.3
 
   # UkleleuSynth
-  vibrate: ^0.0.4
+  # vibrate: ^0.0.4
   flutter_midi: ^1.0.0
 
 dev_dependencies:
