@@ -124,6 +124,23 @@ class UkuTabs extends CustomPainter {
       paint = Paint()
         ..color = Colors.black;
       canvas.drawCircle(printCircle(2, 4, pXDiv6), _circleRadius, paint);
+    } else {
+      // Ici définitation  de la hit box corde 0
+      paint = Paint()
+        ..color = Colors.red;
+      canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, 0.0, pXDiv6 + (pXDiv6 / 2), pYBegin + (strokeWidth * 3) + 20.0), paint); // pYBegin + (strokeWidth * 3)) == 12
+      paint = Paint()
+        ..color = Colors.blue;
+      canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, pYBeginLigne1 + _espacementY / 2, pXDiv6 + (pXDiv6 / 2), pYBeginLigne1 + (_espacementY * 1) + _espacementY / 2), paint);
+      paint = Paint()
+        ..color = Colors.red;
+      canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, pYBeginLigne1 + (_espacementY * 2.0) + _espacementY / 2, pXDiv6 + (pXDiv6 / 2), pYBeginLigne1 + (_espacementY * 1) + _espacementY / 2), paint);
+      paint = Paint()
+        ..color = Colors.blue;
+      canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, pYBeginLigne1 + (_espacementY * 3.0) + _espacementY / 2, pXDiv6 + (pXDiv6 / 2), pYBeginLigne1 + (_espacementY * 2) + _espacementY / 2), paint);
+      paint = Paint()
+        ..color = Colors.red;
+      canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, pYBeginLigne1 + (_espacementY * 4.0) + _espacementY / 2, pXDiv6 + (pXDiv6 / 2), pYBeginLigne1 + (_espacementY * 3) + _espacementY / 2), paint);
     }
   }
 
