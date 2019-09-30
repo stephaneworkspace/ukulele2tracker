@@ -6,14 +6,12 @@ import 'package:flutter/material.dart';
 // https://stackoverflow.com/questions/45684367/flutter-drawing-a-rectangle-in-bottom
 class UkuTabs extends CustomPainter {
 
-  var _swPrint = false;
   List _ligne = [];
 
   final _espacementY = 40.0;
   final _circleRadius = 13.0;
 
-  UkuTabs(bool swPrint, ligne) {
-    _swPrint = swPrint;
+  UkuTabs(List ligne) {
     _ligne = ligne;
   }
 
@@ -27,7 +25,7 @@ class UkuTabs extends CustomPainter {
     final pYEnd = size.height;
     final strokeWidth = 4.0; // Grid black
     final strokeLigne0Width = 3.0; // Round withe
-    final pYBeginLigne0 = pYBegin + ((strokeWidth * 3) / 2); // Round withe (duplicate)
+    // final pYBeginLigne0 = pYBegin + ((strokeWidth * 3) / 2); // Round withe (duplicate)
     final pYBeginLigne1 = pYBegin + (strokeWidth * 3);
     final strokeHelperWidth = 1.0; // round helper black
     final circleHelperRadius = 13.0; // round helper black

@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _counter = 0;
 
-  void _incrementCounter() async {
+  void _playChord() async {
     // This call to setState tells the Flutter framework that something has
     // changed in this State, which causes it to rerun the build method below
     // so that the display can reflect the updated values. If we changed
@@ -97,17 +97,17 @@ class _MyHomePageState extends State<MyHomePage> {
       if (_swBass) {
         _midi = [];
         // G C E A
-        _midi.add(_noteToInt(Note.g, 3)); // 0
-        _midi.add(_noteToInt(Note.d, 3)); // 2
-        _midi.add(_noteToInt(Note.f, 3)); // 1
-        _midi.add(_noteToInt(Note.b, 3)); // 2
+        _midi.add(_noteToInt(Note.g, _ligne[0], 3));
+        _midi.add(_noteToInt(Note.c, _ligne[1], 3)); 
+        _midi.add(_noteToInt(Note.e, _ligne[2], 3)); 
+        _midi.add(_noteToInt(Note.a, _ligne[3], 3)); 
       } else {
         _midi = [];
         // G C E A
-        _midi.add(_noteToInt(Note.g, 4)); // 0
-        _midi.add(_noteToInt(Note.d, 4)); // 2
-        _midi.add(_noteToInt(Note.f, 4)); // 1
-        _midi.add(_noteToInt(Note.b, 4)); // 2
+        _midi.add(_noteToInt(Note.g, _ligne[0], 4));
+        _midi.add(_noteToInt(Note.c, _ligne[1], 4)); 
+        _midi.add(_noteToInt(Note.e, _ligne[2], 4)); 
+        _midi.add(_noteToInt(Note.a, _ligne[3], 4)); 
       }
       for (int ukuString in _midi) {
         FlutterMidi.playMidiNote(midi: ukuString);
@@ -124,8 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
 /* http://blog.sethladd.com/2011/12/lists-and-arrays-in-dart.html
 */
 
-  int _noteToInt(Note note, int octave) {
-    return (octave * 12) + (note.index + 1);
+  int _noteToInt(Note note, int add, int octave) {
+    return (octave * 12) + (note.index + 1) + add;
   }
 
   String _position = '';
@@ -140,10 +140,10 @@ class _MyHomePageState extends State<MyHomePage> {
       if (x > 0) {
         _ligne[x - 1] = y;
       }
-      _position = '${position.relative} + ${UkuHitBox().detectColumn(position.relative.dx)} ${UkuHitBox().detectLine(position.relative.dy)}';
-      //_position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
+      _position = '${UkuHitBox().detectColumn(position.relative.dx)} | ${UkuHitBox().detectLine(position.relative.dy)}';
+      //_position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}'; // relative is ok
     }); // setState for refresh form
-    _setPrint();
+    // _setPrint();
   }
 
   // Pour le moment je n'ouvre pas une nouvelle vue
@@ -160,12 +160,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /*
   bool _swPrint = false;
   void _setPrint() {
     setState(() {
       _swPrint ? _swPrint = false : _swPrint = true;
     });
-  }
+  }*/
 
   bool _swBass = false;
   void _toSwBass(context) async {
@@ -252,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
             doubleTapDelay: Duration(milliseconds: 500),
             child: new CustomPaint(
               size: Size(300, 530),
-              painter: new UkuTabs(_swPrint, _ligne)
+              painter: new UkuTabs(_ligne)
             ),
           )
         )
@@ -294,7 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: body,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _playChord,
         tooltip: 'Play',
         child: Icon(Icons.play_arrow),
         /*child: Ink.image(
