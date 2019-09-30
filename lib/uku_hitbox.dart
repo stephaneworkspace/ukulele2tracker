@@ -46,7 +46,7 @@ class UkuHitBox {
                             if (y >= (pYBeginLigne1 + (_espacementY * 11.0)) && y <= (pYBeginLigne1 + (_espacementY * 12.0)))
                               return 12;
                             else
-                              return -1;
+                              return 0;
   }
 
   int detectColumn(double x) {

@@ -129,8 +129,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String _position = '';
+  List _ligne = [
+    0, 0, 0, 0
+  ];
+
   void _handleTap(String gesture, TapPosition position) {
     setState(() {
+      int x = UkuHitBox().detectColumn(position.relative.dx);
+      int y = UkuHitBox().detectLine(position.relative.dy);
+      if (x > 0) {
+        _ligne[x - 1] = y;
+      }
       _position = '${position.relative} + ${UkuHitBox().detectColumn(position.relative.dx)} ${UkuHitBox().detectLine(position.relative.dy)}';
       //_position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}';
     }); // setState for refresh form
@@ -243,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
             doubleTapDelay: Duration(milliseconds: 500),
             child: new CustomPaint(
               size: Size(300, 530),
-              painter: new UkuTabs(_swPrint)
+              painter: new UkuTabs(_swPrint, _ligne)
             ),
           )
         )

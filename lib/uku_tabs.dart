@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 class UkuTabs extends CustomPainter {
 
   var _swPrint = false;
+  List _ligne = [];
+
   final _espacementY = 40.0;
   final _circleRadius = 13.0;
 
-  UkuTabs(bool swPrint) {
+  UkuTabs(bool swPrint, ligne) {
     _swPrint = swPrint;
+    _ligne = ligne;
   }
 
   @override
@@ -100,6 +103,30 @@ class UkuTabs extends CustomPainter {
     canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 9) + _espacementY / 2)), circleHelperRadius, paint);
     canvas.drawCircle(Offset(pXDiv2, (pYBeginLigne1 + (_espacementY * 11) + _espacementY / 2)), circleHelperRadius, paint);
 
+    // c = column 1 to 4
+    int c = 0;
+    for (int l in _ligne) {
+      c++;
+      switch (l) {
+        case 0:
+          paint = Paint()
+            ..color = Colors.black;
+          canvas.drawCircle(printCircle(l, c, pXDiv6), _circleRadius, paint);
+          paint = Paint()
+            ..color = Colors.white
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = strokeLigne0Width
+            ..strokeCap = StrokeCap.round;
+          canvas.drawCircle(printCircle(l, c, pXDiv6), _circleRadius, paint);
+          break;
+        default:
+        paint = Paint()
+          ..color = Colors.black;
+        canvas.drawCircle(printCircle(l, c, pXDiv6), _circleRadius, paint);
+          break;
+      }
+    }
+/*
     // Essai
     if (_swPrint) {
       // 0.1
@@ -141,7 +168,7 @@ class UkuTabs extends CustomPainter {
       paint = Paint()
         ..color = Colors.red;
       canvas.drawRect(new Rect.fromLTRB(pXDiv6 / 2, pYBeginLigne1 + (_espacementY * 4.0), pXDiv6 + (pXDiv6 / 2), pYBeginLigne1 + (_espacementY * 3)), paint);
-    }*/
+    }*/*/
   }
 
   @override
