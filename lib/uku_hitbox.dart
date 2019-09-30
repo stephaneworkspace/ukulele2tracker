@@ -1,9 +1,10 @@
 class UkuHitBox {
+  //final pYBegin = 40.0;
   final pXDiv6 = 300.0 / 5; // final pXDiv6 = size.width / 5; 
   final pY0Min = 0.0; // 
-  final pY0Max = 14.0; // pYBegin + (strokeWidth * 3) + 2.0
+  final pY0Max = 40.0 + 14.0; // pYBegin + (strokeWidth * 3) + 2.0
   final _espacementY = 40.0;
-  final pYBeginLigne1 = 12.0; //pYBegin + (strokeWidth * 3);
+  final pYBeginLigne1 = 40.0 + 12.0; //pYBegin + (strokeWidth * 3);
 
   // pXDiv6 + (pXDiv6 / 2)
 

@@ -20,7 +20,7 @@ class UkuTabs extends CustomPainter {
     // x | | | | x // = 5 { x = margin}
     final pXDiv6 = size.width / 5; // 4 chord + margin
     final pXDiv2 = size.width / 2; // for print round helper black
-    final pYBegin = 0.0;
+    final pYBegin = 40.0;
     final pYEnd = size.height;
     final strokeWidth = 4.0; // Grid black
     final strokeLigne0Width = 3.0; // Round withe
@@ -80,8 +80,8 @@ class UkuTabs extends CustomPainter {
       Offset(pXDiv6 * 4, pYBeginLigne1 + (_espacementY * 11)),
       Offset(pXDiv6 * 1, pYBeginLigne1 + (_espacementY * 12)),
       Offset(pXDiv6 * 4, pYBeginLigne1 + (_espacementY * 12)),
-      Offset(pXDiv6 * 1, pYBeginLigne1 + (_espacementY * 13)),
-      Offset(pXDiv6 * 4, pYBeginLigne1 + (_espacementY * 13)),
+      //Offset(pXDiv6 * 1, pYBeginLigne1 + (_espacementY * 13)),
+      //Offset(pXDiv6 * 4, pYBeginLigne1 + (_espacementY * 13)),
     ];
     paint = Paint()
       ..color = Colors.black
@@ -154,12 +154,12 @@ class UkuTabs extends CustomPainter {
   /// pXDiv6 = 4 chord + margin (see upper in paint method)
   Offset printCircle(int y, int x, double pXDiv6, ) {
     final strokeWidth = 4.0;
-    final pYBegin = 0.0;
+    final pYBegin = 40.0;
     final pYBeginLigne0 = pYBegin + ((strokeWidth * 3) / 2); // Round withe / black
     final pYBeginLigne1 = pYBegin + (strokeWidth * 3); // Round black
     switch(y) {
       case 0:
-        return Offset(pXDiv6 * x.toDouble(), pYBeginLigne0);
+        return Offset(pXDiv6 * x.toDouble(), pYBeginLigne0 - 30.0);
       default:
         return Offset(pXDiv6 * x.toDouble(), (pYBeginLigne1 + (_espacementY * (y.toDouble() - 1.0)) + _espacementY / 2.0));
     }
