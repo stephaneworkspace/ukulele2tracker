@@ -70,11 +70,15 @@ class _MyHomePageState extends State<MyHomePage> {
     /*rootBundle.load('assets/sounds/Bachata_guitar.sf2').then((sf2) {
       FlutterMidi.prepare(sf2: sf2, name: 'Bachata_guitar.sf2');
     });*/
+
+    _bottomText = '${_intToNoteString(Note.g, 48)} ${_intToNoteString(Note.c, 48)} ${_intToNoteString(Note.e, 48)} ${_intToNoteString(Note.a, 48)}';
   }
   
   List _midi = [];
 
   int _counter = 0;
+
+  final _startOctave = 48;
 
   void _playChord() async {
     // This call to setState tells the Flutter framework that something has
@@ -94,21 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // 36 - C3
       // 48 - C4
       // 60 - C5
-      if (_swBass) {
-        _midi = [];
-        // G C E A
-        _midi.add(_noteToInt(Note.g, _ligne[0], 3));
-        _midi.add(_noteToInt(Note.c, _ligne[1], 3)); 
-        _midi.add(_noteToInt(Note.e, _ligne[2], 3)); 
-        _midi.add(_noteToInt(Note.a, _ligne[3], 3)); 
-      } else {
-        _midi = [];
-        // G C E A
-        _midi.add(_noteToInt(Note.g, _ligne[0], 4));
-        _midi.add(_noteToInt(Note.c, _ligne[1], 4)); 
-        _midi.add(_noteToInt(Note.e, _ligne[2], 4)); 
-        _midi.add(_noteToInt(Note.a, _ligne[3], 4)); 
-      }
+      _midi = [];
+      // G C E A
+      _midi.add(_noteToInt(Note.g, _ligne[0], _swPlayOctave));
+      _midi.add(_noteToInt(Note.c, _ligne[1], _swPlayOctave)); 
+      _midi.add(_noteToInt(Note.e, _ligne[2], _swPlayOctave)); 
+      _midi.add(_noteToInt(Note.a, _ligne[3], _swPlayOctave)); 
       for (int ukuString in _midi) {
         FlutterMidi.playMidiNote(midi: ukuString);
         Timer(Duration(seconds: 1), () {
@@ -128,7 +123,88 @@ class _MyHomePageState extends State<MyHomePage> {
     return (octave * 12) + (note.index + 1) + add;
   }
 
-  String _position = '';
+  String _intToNoteString(Note offSet, int noteMidi) {
+    int octave = (noteMidi / 12).round();
+    int note = noteMidi - (octave * 12) + (offSet.index);
+    String noteString = '';
+    switch (note) {
+      case 0:
+        noteString = 'C';
+        break;
+      case 1:
+        noteString = 'C#';
+        break;
+      case 2:
+        noteString = 'D';
+        break;
+      case 3:
+        noteString = 'D#';
+        break;
+      case 4:
+        noteString = 'E';
+        break;
+      case 5:
+        noteString = 'F';
+        break;
+      case 6:
+        noteString = 'F#';
+        break;
+      case 7:
+        noteString = 'G';
+        break;
+      case 8:
+        noteString = 'G#';
+        break;
+      case 9:
+        noteString = 'A';
+        break;
+      case 10:
+        noteString = 'A#';
+        break;
+      case 11:
+        noteString = 'B';
+        break;
+      case 12:
+        noteString = 'C';
+        break;
+      case 13:
+        noteString = 'C#';
+        break;
+      case 14:
+        noteString = 'D';
+        break;
+      case 15:
+        noteString = 'D#';
+        break;
+      case 16:
+        noteString = 'E';
+        break;
+      case 17:
+        noteString = 'F';
+        break;
+      case 18:
+        noteString = 'F#';
+        break;
+      case 19:
+        noteString = 'G';
+        break;
+      case 20:
+        noteString = 'G#';
+        break;
+      case 21:
+        noteString = 'A';
+        break;
+      case 22:
+        noteString = 'A#';
+        break;
+      case 23:
+        noteString = 'B';
+        break;
+    } 
+    return '$noteString$octave';
+  }
+
+  String _bottomText = '';
   List _ligne = [
     0, 0, 0, 0
   ];
@@ -140,8 +216,9 @@ class _MyHomePageState extends State<MyHomePage> {
       if (x > 0) {
         _ligne[x - 1] = y;
       }
-      _position = '${UkuHitBox().detectColumn(position.relative.dx)} | ${UkuHitBox().detectLine(position.relative.dy)}';
-      //_position = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}'; // relative is ok
+      _bottomText = '${_intToNoteString(Note.g, _ligne[0] + _startOctave)} ${_intToNoteString(Note.c, _ligne[1] + _startOctave)} ${_intToNoteString(Note.e, _ligne[2] + _startOctave)} ${_intToNoteString(Note.a, _ligne[3] + _startOctave)}';
+      //_bottomText = '${UkuHitBox().detectColumn(position.relative.dx)} | ${UkuHitBox().detectLine(position.relative.dy)}';
+      //_bottomText = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}'; // relative is ok
     }); // setState for refresh form
     // _setPrint();
   }
@@ -149,16 +226,17 @@ class _MyHomePageState extends State<MyHomePage> {
   // Pour le moment je n'ouvre pas une nouvelle vue
   void _toHelp(context) {
     setState(() {
-      _position = 'Help';
+      _bottomText = 'Ukulele helper by Stéphane Bressani';
     });
   }
 
+/*
   // Pour le moment je n'ouvre pas une nouvelle vue
   void _toSettings(context) {
     setState(() {
-      _position = 'Settings';
+      _bottomText = 'Settings';
     });
-  }
+  }*/
 
   /*
   bool _swPrint = false;
@@ -168,10 +246,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }*/
 
-  bool _swBass = false;
-  void _toSwBass(context) async {
+  int _swPlayOctave = 4;
+  void _toSwPlayOctave(context) async {
     setState(() {
-      _swBass ? _swBass = false : _swBass = true;
+      (_swPlayOctave == 5) ? _swPlayOctave = 2 : _swPlayOctave++;
     });
   }
   /*
@@ -193,14 +271,15 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> menu = <Widget>[
       new IconButton(
         icon: new Icon(Icons.tonality),
-        tooltip: 'Bass or Ukulele Med/High',
-        onPressed: () => _toSwBass(context)
+        tooltip: 'Change play octave',
+        onPressed: () => _toSwPlayOctave(context)
       ),
+      /*
       new IconButton(
         icon: new Icon(Icons.settings),
         tooltip: 'Settings',
         onPressed: () => _toSettings(context)
-      ),
+      ),*/
       new IconButton(
         icon: new Icon(Icons.help),
         tooltip: 'Help',
@@ -265,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Colors.black,
       height: 48.0,
       child: new Center(
-        child: new Text('Bottom Banner: $_position',
+        child: new Text('$_bottomText',
           style: new TextStyle(color: Colors.white)
         ),
       ),
