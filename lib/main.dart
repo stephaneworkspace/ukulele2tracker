@@ -104,14 +104,18 @@ class _MyHomePageState extends State<MyHomePage> {
       _midi.add(_noteToInt(Note.c, _ligne[1], _swPlayOctave)); 
       _midi.add(_noteToInt(Note.e, _ligne[2], _swPlayOctave)); 
       _midi.add(_noteToInt(Note.a, _ligne[3], _swPlayOctave)); 
+      int i = 0;
       for (int ukuString in _midi) {
-        FlutterMidi.playMidiNote(midi: ukuString);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            //_position = 'End';
-            FlutterMidi.stopMidiNote(midi: ukuString);
+        if (!_x[i]) {
+          FlutterMidi.playMidiNote(midi: ukuString);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              //_position = 'End';
+              FlutterMidi.stopMidiNote(midi: ukuString);
+            });
           });
-        });
+        }
+        i++;
       }
     });
   }
@@ -208,15 +212,38 @@ class _MyHomePageState extends State<MyHomePage> {
   List _ligne = [
     0, 0, 0, 0
   ];
+  List _x = [
+    false, false, false, false
+  ];
 
   void _handleTap(String gesture, TapPosition position) {
     setState(() {
       int x = UkuHitBox().detectColumn(position.relative.dx);
+      // Test for X on tablature (no note)
+      if (x > 0) 
+        if (UkuHitBox().detectLine(position.relative.dy) == 0) {
+          _x[x - 1] = !_x[x - 1];
+        } else {
+          _x[x - 1] = false;
+        }
+      // End test for X
       int y = UkuHitBox().detectLine(position.relative.dy);
       if (x > 0) {
         _ligne[x - 1] = y;
       }
-      _bottomText = '${_intToNoteString(Note.g, _ligne[0] + _startOctave)} ${_intToNoteString(Note.c, _ligne[1] + _startOctave)} ${_intToNoteString(Note.e, _ligne[2] + _startOctave)} ${_intToNoteString(Note.a, _ligne[3] + _startOctave)}';
+      String c1 = '';
+      if (!_x[0])
+        c1 = '${_intToNoteString(Note.g, _ligne[0] + _startOctave)}';
+      String c2 = '';
+      if (!_x[1])
+        c2 = '${_intToNoteString(Note.c, _ligne[1] + _startOctave)}';
+      String c3 = '';
+      if (!_x[2])
+        c3 = '${_intToNoteString(Note.e, _ligne[2] + _startOctave)}';
+      String c4 = '';
+      if (!_x[3])
+        c4 = '${_intToNoteString(Note.a, _ligne[3] + _startOctave)}';
+      _bottomText = '$c1 $c2 $c3 $c4';
       //_bottomText = '${UkuHitBox().detectColumn(position.relative.dx)} | ${UkuHitBox().detectLine(position.relative.dy)}';
       //_bottomText = '$_swPrint -> $gesture: Global: ${position.global}, Relative ${position.relative}'; // relative is ok
     }); // setState for refresh form
@@ -332,7 +359,7 @@ class _MyHomePageState extends State<MyHomePage> {
             doubleTapDelay: Duration(milliseconds: 500),
             child: new CustomPaint(
               size: Size(300, 530),
-              painter: new UkuTabs(_ligne)
+              painter: new UkuTabs(_ligne, _x)
             ),
           )
         )

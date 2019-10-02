@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 class UkuTabs extends CustomPainter {
 
   List _ligne = [];
+  List _x = [];
 
   final _espacementY = 40.0;
   final _circleRadius = 13.0;
 
-  UkuTabs(List ligne) {
+  UkuTabs(List ligne, List x) {
     _ligne = ligne;
+    _x = x;
   }
 
   @override
@@ -110,11 +112,18 @@ class UkuTabs extends CustomPainter {
           paint = Paint()
             ..color = Colors.black;
           canvas.drawCircle(printCircle(l, c, pXDiv6), _circleRadius, paint);
-          paint = Paint()
-            ..color = Colors.white
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = strokeLigne0Width
-            ..strokeCap = StrokeCap.round;
+          if (_x[c - 1])
+            paint = Paint()
+              ..color = Colors.red
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = strokeLigne0Width
+              ..strokeCap = StrokeCap.round;
+          else
+            paint = Paint()
+              ..color = Colors.white
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = strokeLigne0Width
+              ..strokeCap = StrokeCap.round;
           canvas.drawCircle(printCircle(l, c, pXDiv6), _circleRadius, paint);
           break;
         default:
